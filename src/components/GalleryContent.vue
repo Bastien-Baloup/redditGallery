@@ -6,12 +6,12 @@
 
 <script setup>
 //imports
-import { defineProps } from 'vue'
+import { defineProps } from "vue";
 //props
 const props = defineProps({
   url: { type: String, default: "" },
-  name: { type: String, default: "" }
-})
+  name: { type: String, default: "" },
+});
 </script>
 
 <style lang="scss" scoped>

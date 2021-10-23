@@ -1,5 +1,4 @@
 <template>
-  <p>test</p>
   <Gallery subreddit="cats" sort="new" />
 </template>
 
