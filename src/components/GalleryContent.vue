@@ -1,11 +1,13 @@
 <template>
   <picture>
-    <img :src="props.url" :alt="props.name" />
+    <img :src="props.url" alt />
   </picture>
 </template>
 
 <script setup>
+//imports
 import { defineProps } from 'vue'
+//props
 const props = defineProps({
   url: { type: String, default: "" },
   name: { type: String, default: "" }
@@ -15,7 +17,9 @@ const props = defineProps({
 <style lang="scss" scoped>
 picture {
   height: calc(15vw + 10vh);
+  min-width: calc(10vw + 10vh);
   flex-grow: 1;
+  background-color: #444;
 }
 img {
   height: 100%;
