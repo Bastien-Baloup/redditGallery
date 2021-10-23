@@ -2,11 +2,10 @@
   <div class="gallery-header">
     <h2>r/{{ subreddit }} Gallery</h2>
     <div class="sorting">
-      <a href="/">new</a>
-      <a href="/">hot</a>
-      <a href="/">best</a>
-      <a href="/">top</a>
-      <a href="/">random</a>
+      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'new' } }">new</router-link>
+      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'hot' } }">hot</router-link>
+      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'best' } }">best</router-link>
+      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'top' } }">top</router-link>
     </div>
   </div>
 
@@ -28,20 +27,20 @@
 
 <script setup>
 //imports
-import { ref, defineProps } from "vue";
-import { getPostList } from "../services/ApiServices";
-import GalleryContent from "./GalleryContent.vue";
+import { ref, defineProps } from "vue"
+import { getPostList } from "../services/ApiServices"
+import GalleryContent from "../components/GalleryContent.vue"
 
 //props
 const props = defineProps({
   subreddit: { type: String, default: "" },
   sort: { type: String, default: "hot" },
-});
+})
 
 //reactive state
-const listing = ref([]);
-const after = ref("");
-const loading = ref(true);
+const listing = ref([])
+const after = ref("")
+const loading = ref(true)
 
 //methods
 
@@ -53,50 +52,50 @@ const loading = ref(true);
  * @return {Array.<Object>} arrays of image posts formated the same ways reddit send them.
  */
 const getData = async (after, count) => {
-  var data = await getPostList(props.subreddit, props.sort, 1099, after);
+  var data = await getPostList(props.subreddit, props.sort, 1099, after)
   var listing = data.data.data.children.filter(
     (post) => post.data.post_hint == "image"
-  );
-  after = data.data.data.after;
+  )
+  after = data.data.data.after
 
   while (listing.length < count) {
-    data = await getPostList(props.subreddit, props.sort, 1099, after);
+    data = await getPostList(props.subreddit, props.sort, 1099, after)
     listing.push(
       ...data.data.data.children.filter(
         (post) => post.data.post_hint == "image"
       )
-    );
-    after = data.data.data.after;
+    )
+    after = data.data.data.after
   }
 
-  return [listing, after];
-};
+  return [listing, after]
+}
 
 /**
  * use the getData function to fetch the next 100+ images post and the id of the next post from reddit and update the component state with init
  */
 const next = () => {
-  console.log("loading");
+  console.log("loading")
   return getData(after.value, 100).then(([_listing, _after]) => {
-    listing.value.push(..._listing);
-    after.value = _after;
-    loading.value = false;
-  });
-};
+    listing.value.push(..._listing)
+    after.value = _after
+    loading.value = false
+  })
+}
 
 //setup
 next().then(() => {
   //initialize the infinite scroll after the first load
   window.onscroll = () => {
     const isNearEnd =
-      window.scrollY > document.body.offsetHeight - 3 * window.innerHeight; // isNearEnd is true when we're 2 * innerHeight above the end of the page
+      window.scrollY > document.body.offsetHeight - 3 * window.innerHeight // isNearEnd is true when we're 2 * innerHeight above the end of the page
     if (isNearEnd && !loading.value) {
       //we fetching the next batch of images if we're near the end of the page and not already fetching it
-      loading.value = true;
-      next();
+      loading.value = true
+      next()
     }
-  };
-});
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -108,11 +107,19 @@ next().then(() => {
   margin: auto;
   h2 {
     margin: auto 0 0.5vh 0;
+    font-size: 2rem;
   }
   .sorting {
     margin-bottom: auto;
     a {
       margin-inline: 0.5rem;
+      &:visited {
+        color: #d7dadc;
+      }
+      &:hover,
+      &.router-link-active {
+        font-weight: bold;
+      }
     }
   }
 }
@@ -121,7 +128,11 @@ next().then(() => {
   flex-wrap: wrap;
   height: max-content;
   width: 98vw;
+  max-width: 1880px;
   margin: auto;
+  justify-content: space-between;
+  column-gap: 10px;
+  row-gap: 15px;
 }
 .loader {
   display: flex;
@@ -132,8 +143,8 @@ next().then(() => {
     // Spinner size and color
     width: 1.5rem;
     height: 1.5rem;
-    border-top-color: #ccc;
-    border-left-color: #ccc;
+    border-top-color: #d7dadc;
+    border-left-color: #d7dadc;
 
     // Additional spinner styles
     animation: spinner 1s linear infinite;

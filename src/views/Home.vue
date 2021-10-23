@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import Gallery from "../components/Gallery.vue"
+import Gallery from "./Gallery.vue"
 </script>

@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <router-view></router-view>
+  <router-view :key="$route.fullPath" />
 </template>
 
 // TODO: add a footer
@@ -13,7 +13,7 @@ import Header from "./components/Header.vue"
 @import "scss-reset/_reset.scss";
 
 html {
-  background-color: #111;
-  color: #ccc;
+  background-color: #1a1a1b;
+  color: #d7dadc;
 }
 </style>
