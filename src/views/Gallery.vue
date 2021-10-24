@@ -25,6 +25,8 @@
   </div>
 </template>
 
+// TODO: add error handling
+
 <script setup>
 //imports
 import { ref, defineProps } from "vue"
@@ -59,6 +61,7 @@ const getData = async (after, count) => {
   after = data.data.data.after
 
   while (listing.length < count) {
+    // TODO: break if after is null
     data = await getPostList(props.subreddit, props.sort, 1099, after)
     listing.push(
       ...data.data.data.children.filter(
@@ -113,6 +116,10 @@ next().then(() => {
     margin-bottom: auto;
     a {
       margin-inline: 0.5rem;
+      color: #d7dadc;
+      a:link {
+        color: #d7dadc;
+      }
       &:visited {
         color: #d7dadc;
       }
@@ -124,15 +131,15 @@ next().then(() => {
   }
 }
 .gallery-container {
-  display: flex;
-  flex-wrap: wrap;
   height: max-content;
   width: 98vw;
   max-width: 1880px;
   margin: auto;
-  justify-content: space-between;
-  column-gap: 10px;
-  row-gap: 15px;
+
+  display: grid;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fit, calc(15vw + 10vh));
+  justify-content: space-evenly;
 }
 .loader {
   display: flex;

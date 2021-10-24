@@ -35,3 +35,5 @@ export const getPostList = async (subreddit, sort, limit, after, before) => {
     )
     .catch((e) => console.log(e))
 }
+
+// TODO: add function testing if a subreddit exist using the /r/subreddit/about.json route

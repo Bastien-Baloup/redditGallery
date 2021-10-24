@@ -18,14 +18,14 @@ const props = defineProps({
 picture {
   height: calc(15vw + 10vh);
   max-height: 396px;
-  width: max-content;
-  background-color: #444;
-  outline: 3px solid #000;
+  width: 100%;
+  background-color: #030303;
+  outline: 1rem solid #030303;
 }
 img {
   height: 100%;
-  width: auto;
-  object-fit: fill;
+  width: 100%;
+  object-fit: contain;
   vertical-align: bottom;
 }
 </style>
