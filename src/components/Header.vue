@@ -1,9 +1,9 @@
 <template>
   <div class="header">
-    <div class="branding">
+    <router-link :to="{ name: 'Home' }" class="branding">
       <div class="logo"></div>
       <div class="title">Reddit Gallery</div>
-    </div>
+    </router-link>
     <form class="search" @submit.prevent="handleSubmit">
       <label for="subreddit">r/</label>
       <input
@@ -28,7 +28,7 @@ const router = useRouter()
 const handleSubmit = () => {
   router.push({ name: 'Gallery', params: { subreddit: subreddit.value, sort: 'hot' } })
 }
-                                                                                                                                                                                                         </script>
+</script>
 <style lang="scss" scoped>
 .header {
   display: flex;
@@ -38,6 +38,8 @@ const handleSubmit = () => {
   border-bottom: 1px solid #d7dadc;
   .branding {
     margin-right: auto;
+    color: #d7dadc;
+    text-decoration: none;
     .title {
       line-height: 30px;
     }
@@ -47,6 +49,7 @@ const handleSubmit = () => {
     display: flex;
     align-items: flex-end;
     margin-left: auto;
+    transform: translateY(-20%);
     label {
       border-bottom: 2px solid #d7dadc;
       font-weight: bold;
