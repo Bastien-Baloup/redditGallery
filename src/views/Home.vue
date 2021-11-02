@@ -82,6 +82,7 @@ const handleSubmit = () => {
 
   .disclaimer {
     margin-top: auto;
+    margin-bottom: 1rem;
     height: max-content;
   }
 }
