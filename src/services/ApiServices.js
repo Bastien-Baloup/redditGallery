@@ -13,7 +13,7 @@ const apiClient = axios.create({
 
 /**
  * Return a listing of posts from a subreddit using the reddit api
- * @param {string} subreddit the choosen subreddit url
+ * @param {string} subreddit the choosen subreddit name
  * @param {string} sort criteria on which posts are sorted (top, best, hot, new, ...)
  * @param {number} limit how many posts to get in our listing
  * @param {?string} after post id after which we will get our listing cannot be set as the same time as before
@@ -36,4 +36,16 @@ export const getPostList = async (subreddit, sort, limit, after, before) => {
     .catch((e) => console.log(e))
 }
 
-// TODO: add function testing if a subreddit exist using the /r/subreddit/about.json route
+/**
+ * Check if a subreddit exist
+ * @param {string} subreddit the choosen subreddit Name
+ * @returns {boolean} whether the subreddit exist
+ */
+export const doesSubredditExist = async (subreddit) => {
+  const data = await apiClient.get("/r/" + subreddit + "/about.json")
+    .then((res) => res.data)
+    .catch(() => {
+      return { kind: "error" }
+    })
+  return data.kind === "t5"
+}

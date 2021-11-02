@@ -1,39 +1,48 @@
 <template>
-  <div class="gallery-header">
-    <h2>r/{{ subreddit }} Gallery</h2>
-    <div class="sorting">
-      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'new' } }">new</router-link>
-      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'hot' } }">hot</router-link>
-      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'best' } }">best</router-link>
-      <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'top' } }">top</router-link>
+  <div v-if="!error" class="gallery">
+    <div class="gallery-header">
+      <h2>r/{{ subreddit }} Gallery</h2>
+      <div class="sorting">
+        <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'new' } }">new</router-link>
+        <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'hot' } }">hot</router-link>
+        <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'best' } }">best</router-link>
+        <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'top' } }">top</router-link>
+      </div>
+    </div>
+
+    <!-- gallery container, only appears after the listing get filled -->
+    <div v-if="listing.length > 0" class="gallery-container">
+      <GalleryContent
+        v-for="post in listing"
+        :key="post.data.name"
+        :url="post.data.url"
+        :title="post.data.title"
+        :author="post.data.author"
+      />
+    </div>
+    <div v-else-if="!loading" class="gallery-empty">
+      <p>Sorry, no pictures have been found here.</p>
+    </div>
+    <!-- loader, only appears when loading a batch of post from reddit -->
+    <div v-if="loading" class="loader">
+      <div class="spinner" />
+      <div class="text">Loading posts from r/{{ subreddit }}</div>
     </div>
   </div>
-
-  <!-- gallery container, only appears after the listing get filled -->
-  <div v-if="listing.length > 0" class="gallery-container">
-    <GalleryContent
-      v-for="post in listing"
-      :key="post.data.name"
-      :url="post.data.url"
-      :name="post.data.title"
-    />
-  </div>
-  <!-- loader, only appears when loading a batch of post from reddit -->
-  <div v-if="loading" class="loader">
-    <div class="spinner" />
-    <div class="text">Loading posts from r/{{ subreddit }}</div>
+  <div v-else class="gallery-error">
+    <h2>Oops</h2>
+    <p>It seems we can't find r/{{ subreddit }}</p>
   </div>
 </template>
 
-// TODO: add error handling
-
 <script setup>
 //imports
-import { ref, defineProps } from "vue"
-import { getPostList } from "../services/ApiServices"
+import { ref } from "vue"
+import { getPostList, doesSubredditExist } from "../services/ApiServices"
 import GalleryContent from "../components/GalleryContent.vue"
 
 //props
+/* global defineProps */
 const props = defineProps({
   subreddit: { type: String, default: "" },
   sort: { type: String, default: "hot" },
@@ -43,6 +52,7 @@ const props = defineProps({
 const listing = ref([])
 const after = ref("")
 const loading = ref(true)
+const error = ref(false)
 
 //methods
 
@@ -62,6 +72,9 @@ const getData = async (after, count) => {
 
   while (listing.length < count) {
     // TODO: break if after is null
+    if (after == null) {
+      break
+    }
     data = await getPostList(props.subreddit, props.sort, 1099, after)
     listing.push(
       ...data.data.data.children.filter(
@@ -77,13 +90,20 @@ const getData = async (after, count) => {
 /**
  * use the getData function to fetch the next 100+ images post and the id of the next post from reddit and update the component state with init
  */
-const next = () => {
+const next = async () => {
   console.log("loading")
-  return getData(after.value, 100).then(([_listing, _after]) => {
-    listing.value.push(..._listing)
-    after.value = _after
-    loading.value = false
-  })
+  if (await doesSubredditExist(props.subreddit)) {
+    return getData(after.value, 100).then(([_listing, _after]) => {
+      listing.value.push(..._listing)
+      after.value = _after
+      loading.value = false
+      console.log("loaded")
+    })
+  } else {
+    console.log("error")
+    error.value = true
+  }
+
 }
 
 //setup
@@ -102,7 +122,9 @@ next().then(() => {
 </script>
 
 <style lang="scss" scoped>
-.gallery-header {
+.gallery-header,
+.gallery-empty,
+.gallery-error {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +132,11 @@ next().then(() => {
   margin: auto;
   h2 {
     margin: auto 0 0.5vh 0;
-    font-size: 2rem;
+    font-size: 2.5rem;
+  }
+  p {
+    margin-top: 0.5vh;
+    font-size: 1.5rem;
   }
   .sorting {
     margin-bottom: auto;
@@ -141,6 +167,7 @@ next().then(() => {
   grid-template-columns: repeat(auto-fit, calc(15vw + 10vh));
   justify-content: space-evenly;
 }
+
 .loader {
   display: flex;
   width: 100%;

@@ -28,7 +28,7 @@ const router = useRouter()
 const handleSubmit = () => {
   router.push({ name: 'Gallery', params: { subreddit: subreddit.value, sort: 'hot' } })
 }
-</script>
+                                                                                                                                                                                                         </script>
 <style lang="scss" scoped>
 .header {
   display: flex;
@@ -61,6 +61,10 @@ const handleSubmit = () => {
       border-bottom: 2px solid #d7dadc;
       border-right: 2px solid #d7dadc;
       line-height: 1.4rem;
+      &::placeholder {
+        color: darken($color: #d7dadc, $amount: 20%);
+        opacity: 1;
+      }
     }
     #submit {
       margin-left: 8px;
