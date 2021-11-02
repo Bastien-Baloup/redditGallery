@@ -1,11 +1,13 @@
 <template>
   <div class="item">
-    <picture>
-      <img :src="props.url" alt />
-    </picture>
+    <a :href="'https://reddit.com' + permalink" target="_blanc">
+      <picture>
+        <img :src="url" alt />
+      </picture>
+    </a>
     <div class="hover">
-      <div class="title" v-html="props.title" />
-      <div class="author">u/{{ props.author }}</div>
+      <a :href="'https://reddit.com' + permalink" target="_blanc" class="title" v-html="title" />
+      <a :href="'https://reddit.com/u/' + author" target="_blanc" class="author">u/{{ author }}</a>
     </div>
   </div>
 </template>
@@ -14,10 +16,11 @@
 //imports
 import { defineProps } from "vue"
 //props
-const props = defineProps({
+defineProps({
   url: { type: String, default: "" },
   title: { type: String, default: "" },
   author: { type: String, default: "" },
+  permalink: { type: String, default: "" }
 })
 </script>
 
@@ -49,11 +52,24 @@ const props = defineProps({
     background-color: #030303bb;
     padding-top: 1rem;
     transition: visibility 0.3s, opacity 0.3s ease-in;
+    .title {
+      display: block;
+      color: #d7dadc;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     .author {
+      display: block;
       margin-top: 0.5em;
       color: darken($color: #d7dadc, $amount: 20%);
+      text-decoration: none;
       width: 100%;
       text-align: right;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   &:hover .hover {

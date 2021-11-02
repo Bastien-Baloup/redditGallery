@@ -18,6 +18,7 @@
         :url="post.data.url"
         :title="post.data.title"
         :author="post.data.author"
+        :permalink="post.data.permalink"
       />
     </div>
     <div v-else-if="!loading" class="gallery-empty">

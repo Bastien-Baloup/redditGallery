@@ -13,6 +13,9 @@
       />
       <input id="submit" type="submit" value="Go" />
     </form>
+    <p
+      class="disclaimer"
+    >All content is taken from Reddit and therefore are property of Reddit or it's users.</p>
   </div>
 </template>
 
@@ -32,7 +35,7 @@ const handleSubmit = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 10vh;
+  height: calc(100vh - 3.5rem);
   margin: auto;
   text-align: center;
   h1 {
@@ -75,6 +78,11 @@ const handleSubmit = () => {
       font-size: 1.3em;
       line-height: 0.8em;
     }
+  }
+
+  .disclaimer {
+    margin-top: auto;
+    height: max-content;
   }
 }
 </style>
