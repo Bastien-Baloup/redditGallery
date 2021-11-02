@@ -184,6 +184,7 @@ next().then(() => {
   width: 98vw;
   max-width: 1880px;
   margin: auto;
+  margin-top: 1rem;
 
   display: grid;
   grid-gap: 3rem;
