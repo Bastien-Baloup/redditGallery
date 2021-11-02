@@ -26,12 +26,24 @@
     <!-- loader, only appears when loading a batch of post from reddit -->
     <div v-if="loading" class="loader">
       <div class="spinner" />
-      <div class="text">Loading posts from r/{{ subreddit }}</div>
+      <div class="text">Loading posts from r/{{ subreddit }}.</div>
     </div>
   </div>
   <div v-else class="gallery-error">
     <h2>Oops</h2>
     <p>It seems we can't find r/{{ subreddit }}</p>
+    <p>Search something else ?</p>
+    <form class="search" @submit.prevent="handleSubmit">
+      <label for="subreddit">r/</label>
+      <input
+        id="subreddit"
+        v-model="searchSubreddit"
+        type="text"
+        name="subreddit"
+        placeholder="subreddit"
+      />
+      <input id="submit" type="submit" value="Go" />
+    </form>
   </div>
 </template>
 
@@ -40,6 +52,9 @@
 import { ref } from "vue"
 import { getPostList, doesSubredditExist } from "../services/ApiServices"
 import GalleryContent from "../components/GalleryContent.vue"
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 //props
 /* global defineProps */
@@ -53,9 +68,14 @@ const listing = ref([])
 const after = ref("")
 const loading = ref(true)
 const error = ref(false)
+let searchSubreddit = ref("")
+
 
 //methods
 
+const handleSubmit = () => {
+  router.push({ name: 'Gallery', params: { subreddit: searchSubreddit.value, sort: 'hot' } })
+}
 /**
  * use ApiServices to fetch at least the desired amount of image posts from reddit listed after the one passed in option
  * @async
@@ -135,7 +155,7 @@ next().then(() => {
     font-size: 2.5rem;
   }
   p {
-    margin-top: 0.5vh;
+    margin-top: 1vh;
     font-size: 1.5rem;
   }
   .sorting {
@@ -155,6 +175,9 @@ next().then(() => {
       }
     }
   }
+}
+.gallery-error h2 {
+  margin-top: 15vh;
 }
 .gallery-container {
   height: max-content;
@@ -207,6 +230,39 @@ next().then(() => {
 
   .text {
     margin-right: auto;
+  }
+}
+
+.search {
+  display: flex;
+  align-items: flex-end;
+  margin: 1vh;
+  font-size: 1.5rem;
+  label {
+    border-bottom: 2px solid #d7dadc;
+    font-weight: bold;
+    line-height: 1.3em;
+  }
+  #subreddit {
+    min-width: 150px;
+    width: 10vw;
+    background-color: #1a1a1b;
+    color: #d7dadc;
+    border: none;
+    border-bottom: 2px solid #d7dadc;
+    border-right: 2px solid #d7dadc;
+    line-height: 1.4rem;
+    &::placeholder {
+      color: darken($color: #d7dadc, $amount: 20%);
+      opacity: 1;
+    }
+  }
+  #submit {
+    margin-left: 8px;
+    color: #d7dadc;
+    border-bottom: 2px solid transparent;
+    font-size: 1.3em;
+    line-height: 0.8em;
   }
 }
 </style>
