@@ -143,17 +143,23 @@ next().then(() => {
 </script>
 
 <style lang="scss" scoped>
+.gallery {
+  display: flex;
+  flex-direction: column;
+}
 .gallery-header,
 .gallery-empty,
 .gallery-error {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 10vh;
+  height: max-content;
   margin: auto;
+  margin-bottom: 1rem;
   h2 {
-    margin: auto 0 0.5vh 0;
+    margin-top: 2vh;
     font-size: 2.5rem;
+    text-align: center;
   }
   p {
     margin-top: 1vh;

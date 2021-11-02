@@ -32,7 +32,8 @@ const handleSubmit = () => {
 <style lang="scss" scoped>
 .header {
   display: flex;
-  height: 3.5rem;
+  height: max-content;
+  min-height: 3.5rem;
   width: 100%;
   padding: 0.65rem;
   border-bottom: 1px solid #d7dadc;
