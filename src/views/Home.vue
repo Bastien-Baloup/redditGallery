@@ -45,7 +45,6 @@ const handleSubmit = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 3.5rem);
   margin: auto;
   text-align: center;
   .logo {
@@ -97,6 +96,8 @@ const handleSubmit = () => {
   }
 
   .disclaimer {
+    position: fixed;
+    bottom: 0;
     margin-top: auto;
     margin-bottom: 1rem;
     height: max-content;
