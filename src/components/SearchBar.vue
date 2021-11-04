@@ -1,8 +1,17 @@
 <template>
-  <form class="search" @submit.prevent="handleSubmit">
-    <label for="subreddit">r/</label>
-    <input id="subreddit" v-model="subreddit" type="text" name="subreddit" placeholder="subreddit" />
-    <input id="submit" type="submit" value="Go" />
+  <form class="search" aria-label="subreddit searchbar" @submit.prevent="handleSubmit">
+    <label>
+      r/
+      <input
+        v-model="subreddit"
+        type="text"
+        name="subreddit"
+        placeholder="subreddit"
+        class="subreddit"
+      />
+    </label>
+
+    <input type="submit" value="Go" class="submit" />
   </form>
 </template>
 
@@ -25,25 +34,26 @@ const handleSubmit = () => {
   font-size: 1.5em;
   label {
     border-bottom: 2px solid #d7dadc;
+    border-right: 2px solid #d7dadc;
     font-weight: bold;
     line-height: 1.3em;
-  }
-  #subreddit {
-    min-width: 6em;
-    width: 8em;
-    max-width: 60vw;
-    background-color: #1a1a1b;
-    color: #d7dadc;
-    border: none;
-    border-bottom: 2px solid #d7dadc;
-    border-right: 2px solid #d7dadc;
-    line-height: 1.4em;
-    &::placeholder {
-      color: darken($color: #d7dadc, $amount: 20%);
-      opacity: 1;
+    width: max-content;
+    .subreddit {
+      min-width: 6em;
+      width: 8em;
+      max-width: 60vw;
+      margin-left: -0.5em;
+      background-color: #1a1a1b;
+      color: #d7dadc;
+      border: none;
+      line-height: 1.4em;
+      &::placeholder {
+        color: darken($color: #d7dadc, $amount: 20%);
+        opacity: 1;
+      }
     }
   }
-  #submit {
+  .submit {
     margin-left: 8px;
     color: #d7dadc;
     border-bottom: 2px solid transparent;

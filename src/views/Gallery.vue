@@ -2,16 +2,16 @@
   <div v-if="!error" class="gallery">
     <div class="gallery-header">
       <h2>r/{{ subreddit }} Gallery</h2>
-      <div class="sorting">
+      <nav class="sorting" aria-label="Ssort by">
         <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'new' } }">new</router-link>
         <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'hot' } }">hot</router-link>
         <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'best' } }">best</router-link>
         <router-link :to="{ name: 'Gallery', params: { subreddit: subreddit, sort: 'top' } }">top</router-link>
-      </div>
+      </nav>
     </div>
 
     <!-- gallery container, only appears after the listing get filled -->
-    <div v-if="listing.length > 0" class="gallery-container">
+    <div v-if="listing.length > 0" class="gallery-container" aria-label="Loaded gallery">
       <GalleryContent
         v-for="post in listing"
         :key="post.data.name"
@@ -21,16 +21,16 @@
         :permalink="post.data.permalink"
       />
     </div>
-    <div v-else-if="!loading" class="gallery-empty">
+    <div v-else-if="!loading" class="gallery-empty" aria-label="Empty gallery">
       <p>Sorry, no pictures have been found here.</p>
     </div>
     <!-- loader, only appears when loading a batch of post from reddit -->
-    <div v-if="loading" class="loader">
+    <div v-if="loading" class="loader" aria-label="Loading indicator">
       <div class="spinner" />
       <div class="text">Loading posts from r/{{ subreddit }}.</div>
     </div>
   </div>
-  <div v-else class="gallery-error">
+  <div v-else class="gallery-error" aria-label="Gallery loading error">
     <h2>Oops</h2>
     <p>It seems we can't find r/{{ subreddit }}</p>
     <p>Search something else ?</p>

@@ -1,13 +1,28 @@
 <template>
   <div class="item">
-    <a :href="'https://reddit.com' + permalink" target="_blanc">
+    <a
+      :href="'https://reddit.com' + permalink"
+      target="_blanc"
+      aria-label="post image linking to the reddit post"
+    >
       <picture>
         <img :src="url" alt />
       </picture>
     </a>
     <div class="hover">
-      <a :href="'https://reddit.com' + permalink" target="_blanc" class="title" v-html="title" />
-      <a :href="'https://reddit.com/u/' + author" target="_blanc" class="author">u/{{ author }}</a>
+      <a
+        :href="'https://reddit.com' + permalink"
+        target="_blanc"
+        class="title"
+        aria-label="title linking to the reddit post"
+        v-html="title"
+      />
+      <a
+        :href="'https://reddit.com/u/' + author"
+        target="_blanc"
+        class="author"
+        aria-label="reddit username of the posts author linking to it's reddit page"
+      >u/{{ author }}</a>
     </div>
   </div>
 </template>
