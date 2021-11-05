@@ -1,7 +1,7 @@
 <template>
   <form class="search" aria-label="subreddit searchbar" @submit.prevent="handleSubmit">
     <label>
-      r/
+      r&sol;
       <input
         v-model="subreddit"
         type="text"
