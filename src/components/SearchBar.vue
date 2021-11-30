@@ -1,7 +1,7 @@
 <template>
   <form class="search" aria-label="subreddit searchbar" @submit.prevent="handleSubmit">
     <label>
-      r&sol;
+      <span>r&sol;</span>
       <input
         v-model="subreddit"
         type="text"
@@ -37,12 +37,13 @@ const handleSubmit = () => {
     border-right: 2px solid #d7dadc;
     font-weight: bold;
     line-height: 1.3em;
-    width: max-content;
+    span {
+      display: inline-block;
+    }
     .subreddit {
       min-width: 6em;
       width: 8em;
       max-width: 60vw;
-      margin-left: -0.5em;
       background-color: #1a1a1b;
       color: #d7dadc;
       border: none;
