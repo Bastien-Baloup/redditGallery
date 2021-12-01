@@ -18,7 +18,7 @@
     </div>
     <h2>Reddit Gallery</h2>
     <p class="subtitle">Another way to browse Reddit</p>
-    <SearchBar class="search" />
+    <SearchBar id="homeSearchbar" class="search" />
     <p
       class="disclaimer"
     >All content is taken from Reddit and therefore are property of Reddit or it's users.</p>

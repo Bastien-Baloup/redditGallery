@@ -1,13 +1,22 @@
 module.exports = {
   env: {
-    node: true,
-    // 'vue/setup-compiler-macros': true
+    browser: true,
+    node: true
   },
-  extends: ["eslint:recommended", "plugin:vue/base", "plugin:vue/vue3-essential", "plugin:vue/vue3-strongly-recommended", "plugin:vue/vue3-recommended", "prettier"],
+  extends: ["eslint:recommended", "plugin:vue/vue3-recommended", "prettier"],
   rules: {
-    // override/add rules settings here, such as:
-    // 'vue/no-unused-vars': 'error'
     'vue/script-setup-uses-vars': 'error',
-    'vue/no-v-html': 'off'
+    'vue/no-v-html': 'off',
   },
+  // set paser option to allow await at top level in js modules
+  parserOptions: {
+    ecmaVersion: 2022,
+    sourceType: 'module',
+
+  },
+  // declare as global vue3 compiler macros to prevent no-undef errors
+  globals: {
+    defineProps: "readonly",
+    defineEmits: "readonly"
+  }
 }

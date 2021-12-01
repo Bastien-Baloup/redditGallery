@@ -46,7 +46,6 @@ import GalleryContent from "../components/GalleryContent.vue"
 import SearchBar from '../components/SearchBar.vue'
 
 //props
-/* global defineProps */
 const props = defineProps({
   subreddit: { type: String, default: "" },
   sort: { type: String, default: "hot" },
@@ -75,7 +74,6 @@ const getData = async (after, count) => {
   after = data.data.data.after
 
   while (listing.length < count) {
-    // TODO: break if after is null
     if (after == null) {
       break
     }

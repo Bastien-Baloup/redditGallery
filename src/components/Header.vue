@@ -19,11 +19,10 @@
       </div>
       <h1 class="title">Reddit Gallery</h1>
     </router-link>
-    <SearchBar class="search" />
+    <SearchBar id="headerSearchbar" class="search" />
   </header>
 </template>
 
-// TODO: add subreddit suggestions using reddit search api (https://www.reddit.com/search.json?q=[put search query here]&type=sr&restrict_sr=false)
 <script setup>
 import SearchBar from '../components/SearchBar.vue'
 </script>

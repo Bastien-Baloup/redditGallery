@@ -49,3 +49,16 @@ export const doesSubredditExist = async (subreddit) => {
     })
   return data.kind === "t5"
 }
+
+/**
+ * search subreddits using keywords
+ * @param {string} query keywords used for the search query
+ * @returns {Object} listing of the search results
+ */
+export const searchSubreddit = async (query) => {
+  return await apiClient.get("/search.json?limit=10&q=" + query + "&type=sr&restrict_sr=false")
+    .then((res) => res.data)
+    .catch(() => {
+      return { error: "Sorry, we can't reach the reddit API" }
+    })
+}
