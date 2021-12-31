@@ -22,7 +22,7 @@
         role="searchbox"
         aria-multiline="false"
         aria-autocomplete="list"
-        aria-controls="autocomplete-results"
+        :aria-controls="id + '-autocomplete-results'"
         :aria-activedescendant="activedescendant"
         :aria-labelledby="id + '-label'"
         @input="onInput"
@@ -34,7 +34,7 @@
       />
       <ul
         v-show="isOpen"
-        id="autocomplete-results"
+        :id="id + '-autocomplete-results'"
         class="autocomplete-results"
         role="listbox"
         aria-label="list of autocomplete results"
@@ -82,6 +82,7 @@ const activedescendant = ref("")
 const router = useRouter()
 
 //methods
+
 //remove the selection then,  when the user has stopped typing for 500ms, load the new suggestions
 const onInput = () => {
   arrowCounter.value = -1

@@ -16,4 +16,14 @@ html {
   background-color: #1a1a1b;
   color: #d7dadc;
 }
+
+*:focus-visible {
+  outline: dotted 1px #d7dadc !important;
+}
+
+@supports not (selector(a: focus-visible)) {
+  *:focus {
+    outline: dotted 1px #d7dadc !important;
+  }
+}
 </style>
