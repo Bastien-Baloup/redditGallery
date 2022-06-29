@@ -1,7 +1,11 @@
-# Vue 3 + Vite
+![reddit gallery logo](public/android-chrome-512x512.png)
+# Reddit Gallery
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Reddit gallery is small app creating a gallery with pictures from a choosen subreddit.
 
-## Recommended IDE Setup
+It can be found [here](https://rgallery.bbaloup.fr/) !
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+## Dependencies
+
+- [Vue.js](https://vuejs.org/)
+- [Reddit API](https://www.reddit.com/dev/api/)
