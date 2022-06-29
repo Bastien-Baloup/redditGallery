@@ -1,9 +1,9 @@
 <template>
   <Header />
   <router-view :key="$route.fullPath" />
+  <!-- TODO: add a footer -->
 </template>
 
-// TODO: add a footer
 
 <script setup>
 import Header from "./components/Header.vue"

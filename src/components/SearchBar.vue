@@ -60,7 +60,6 @@
     <input type="submit" value="Go" class="submit" />
   </form>
 </template>
-// TODO: add subreddit suggestions using the searchSubreddit function
 <script setup>
 //imports
 import { ref } from '@vue/reactivity'
